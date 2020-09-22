@@ -25,7 +25,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 #sudo apt-get install -y kubectl
 
 # Kubeclt Snap
-snap install kubectl --classic
+sudo snap install kubectl --classic
 kubectl version --client
 
 minikube start
