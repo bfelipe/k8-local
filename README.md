@@ -24,6 +24,17 @@ Once you do that, you can execute them like that:
 
 I still want to add additional scripts so you can test different frameworks to handle lambda functions with kubernetes like fission, open fass and openwhisk.
 
+## Issues with ingress.yml
+
+For some reason while using k8 on minikube, when you trying to expose your applications using ingress you can face an error:
+
+    Error from server (InternalError): error when creating "ingress.yml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post https://ingress-nginx-controller-admission.kube-system.svc:443/extensions/v1beta1/ingresses?timeout=30s: x509: certificate signed by unknown authority (possibly because of "x509: ECDSA verification failure" while trying to verify candidate authority
+
+As a proper solution, most people suggest you to expose 8443 por from master node to your pods.
+Because we just use minukube to handle our k8 for local development, you can just remove ValidatingWebhookConfiguration and try to apply your ingress.yml again. To do that you should execute:
+
+    kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
 ## Author
 
 Bruno Felipe
