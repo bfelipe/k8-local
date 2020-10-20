@@ -1,0 +1,15 @@
+apiVersion: networking.k8.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  namespace: default
+  nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+  - host: my-service-domain.io
+    http:
+      paths:
+      - backend:
+          serviceName: app
+          servicePort: 8080
+        path: /
