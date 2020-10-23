@@ -1,39 +1,65 @@
 # K8 local
 
-This project has a bunch of shell scripts to install and configure kubernetes locally and with addition of kuberless framework to run lambda functions inside kubernetes and kubernetes dashboard.
+The intention of K8 local is to simplify the setup of kubernetes localy in your dev machine or bare metal server.
 
-## Setup & Installation
+## Setup & Installation for Kubernetes and Ingress
 
-There is no secret. All files are self descriptive.
+There are a couple steps to be follow to actually install k8 locally.
+First things first, we should to install minikube and kubectl. Both works as environment and command line interface to communicate with kubernetes.
+To do that, simply execute:
 
-You can check each of them before run it.
+    ./setup.sh
 
-You must set all .sh files as executable before. If you don't do that, you will face a message like the one bellow:
+**Importante:** If necessary, you should turn all scripts into executable scripts. You can achieve that by typing:
 
-    'permission denied: ./file_name.sh'
+    chmod +x script-name.sh
 
- To do that just execute
+Once the setup is finished, we are going to enable ingress to our cluster.
 
-    chmod +x file_name.sh
+    ./setup_ingress_nginx_controller.sh
 
-Once you do that, you can execute them like that:
+**Importante:** Because we are running k8 locally, seems like when you restart mikinube, ingress controller stop to work properly, you have to run this same script everytime you restart minikube.
 
-    ./file_name.sh
+Now we are going to install kubernetes dashboard, so we can actually handle kubernetes using a user interface:
 
-## To Do:
+    ./k8_dashboard.sh
 
-I still want to add additional scripts so you can test different frameworks to handle lambda functions with kubernetes like fission, open fass and openwhisk.
+If you wish to initiate the dashboard server, you can simply execute:
 
-## Issues with ingress.yml
+    ./k8_dashboard_server_starter.sh
 
-For some reason while using k8 on minikube, when you trying to expose your applications using ingress you can face an error:
+The server requires a token for each access. You can get one using the script:
 
-    Error from server (InternalError): error when creating "ingress.yml": Internal error occurred: failed calling webhook "validate.nginx.ingress.kubernetes.io": Post https://ingress-nginx-controller-admission.kube-system.svc:443/extensions/v1beta1/ingresses?timeout=30s: x509: certificate signed by unknown authority (possibly because of "x509: ECDSA verification failure" while trying to verify candidate authority
+    ./k8_access_token.sh
 
-As a proper solution, most people suggest you to expose 8443 por from master node to your pods.
-Because we just use minukube to handle our k8 for local development, you can just remove ValidatingWebhookConfiguration and try to apply your ingress.yml again. To do that you should execute:
+## Setup & Installation for Kubeless
 
-    kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+Kubeless is a framework that handles serverless into kubernetes.
+We can install it and have all the proper configurations by using the script:
+
+    ./kubeless_setup.sh
+
+**Importante:** Kubeless is not fully compatible with kubernetes 1.18, so have this in mind if you are running k8 above 1.17. You can always check for more information into kubeless github, when their developers can give you better updates for this questions.
+
+## Finally
+
+Now you have kubernetes and kubeless running locally.
+If you desire, you can actually setup minikube to auto restart with the machine, by using:
+
+    ./minikube_auto_start.sh
+
+So you do not need to use the command bellow to start your cluster anymore:
+
+    minikube start
+
+Also, the setup.sh script will going to install kubernetes v1.17.11. But you can also change it using a specify version of kubernetes.
+
+
+## To Do
+
+- Add Knative scripts and configs
+- Add Faas scripts and configs
+- Add Apache openWhisk  scripts and configs
 
 ## Author
 
