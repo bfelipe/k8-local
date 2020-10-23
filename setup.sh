@@ -28,6 +28,7 @@ sudo install minikube-linux-amd64 /usr/local/bin/minikube
 sudo snap install kubectl --classic
 kubectl version --client
 
-minikube start
+minikube delete
+minikube start --kubernetes-version=v1.17.11
 
 kubectl get nodes
