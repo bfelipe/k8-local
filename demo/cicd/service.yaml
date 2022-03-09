@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: bbc-news-api-svc
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+  selector:
+    app: bbc-news-api
+  type: NodePort
+
+---
+#experimental
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: bbc-news-api-svc-exp
+spec:
+  ports:
+    - protocol: TCP
+      port: 8080
+  selector:
+    app: bbc-news-api-exp
+  type: NodePort

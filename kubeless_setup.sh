@@ -2,14 +2,14 @@
 
 #Kubeless namespace
 kubectl create ns kubeless
-kubectl create -f https://github.com/kubeless/kubeless/releases/download/v1.0.7/kubeless-v1.0.7.yaml
+kubectl create -f https://github.com/kubeless/kubeless/releases/download/v1.0.8/kubeless-v1.0.8.yaml
 
 export OS=$(uname -s| tr '[:upper:]' '[:lower:]')
 #curl -OL https://github.com/kubeless/kubeless/releases/download/$RELEASE/kubeless_$OS-amd64.zip && \
 #  unzip kubeless_$OS-amd64.zip && \
 #  sudo mv bundles/kubeless_$OS-amd64/kubeless /usr/local/bin/
 
-curl -OL https://github.com/kubeless/kubeless/releases/download/v1.0.7/kubeless_linux-amd64.zip && \
+curl -OL https://github.com/kubeless/kubeless/releases/download/v1.0.8/kubeless_linux-amd64.zip && \
   unzip kubeless_linux-amd64.zip && \
   sudo mv bundles/kubeless_linux-amd64/kubeless /usr/local/bin/
 

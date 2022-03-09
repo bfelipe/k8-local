@@ -18,8 +18,6 @@ Once the setup is finished, we are going to enable ingress to our cluster.
 
     ./setup_ingress_nginx_controller.sh
 
-**Importante:** Because we are running k8 locally, seems like when you restart mikinube, ingress controller stop to work properly, you have to run this same script everytime you restart minikube.
-
 Now we are going to install kubernetes dashboard, so we can actually handle kubernetes using a user interface:
 
     ./k8_dashboard.sh
@@ -31,15 +29,6 @@ If you wish to initiate the dashboard server, you can simply execute:
 The server requires a token for each access. You can get one using the script:
 
     ./k8_access_token.sh
-
-## Setup & Installation for Kubeless
-
-Kubeless is a framework that handles serverless into kubernetes.
-We can install it and have all the proper configurations by using the script:
-
-    ./kubeless_setup.sh
-
-**Importante:** Kubeless is not fully compatible with kubernetes 1.18, so have this in mind if you are running k8 above 1.17. You can always check for more information into kubeless github, when their developers can give you better updates for this questions.
 
 ## Finally
 

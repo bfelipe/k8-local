@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: bbc-news-api-ing
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: bbc-news-api.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: bbc-news-api-svc
+              servicePort: 8080
+
+---
+# experimental
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: bbc-news-api-ing-exp
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/canary: "true"
+    nginx.ingress.kubernetes.io/canary-weight: "10"
+spec:
+  rules:
+    - host: bbc-news-api.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              serviceName: bbc-news-api-svc-exp
+              servicePort: 8080

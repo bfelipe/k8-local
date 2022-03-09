@@ -1,0 +1,7 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: bbc-news-api-cm
+data:
+  BBC_URI: "https://feeds.bbci.co.uk/news/world/rss.xml"

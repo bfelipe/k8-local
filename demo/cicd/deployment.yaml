@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbc-news-api-dp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bbc-news-api
+  template:
+    metadata:
+      labels:
+        app: bbc-news-api
+    spec:
+      containers:
+      - name: bbc-news-api
+        image: bbc-news-api
+        imagePullPolicy: Never # allow to use local docker images which is our case
+        ports:
+          - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 20
+        envFrom:
+          - configMapRef:
+              name: bbc-news-api-cm
+
+---
+#experimental
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bbc-news-api-dp-exp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bbc-news-api-exp
+  template:
+    metadata:
+      labels:
+        app: bbc-news-api-exp
+    spec:
+      containers:
+      - name: bbc-news-api-exp
+        image: bbc-news-api-exp
+        imagePullPolicy: Never # allow to use local docker images which is our case
+        ports:
+          - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 20
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+            httpHeaders:
+              - name: Host
+                value: localhost
+          initialDelaySeconds: 20
+        envFrom:
+          - configMapRef:
+              name: bbc-news-api-cm
